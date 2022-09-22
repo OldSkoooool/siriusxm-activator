@@ -1,4 +1,7 @@
 #!/bin/bash
+## Inspired by Parker Stephens' work
+## https://github.com/parker-stephens/siriusxm-activator/blob/main/index.html
+
 ## requires jq
 
 ## get token
@@ -16,7 +19,7 @@ claimToken=$( curl \
   $url | \
   jq -r .claims_token.value )
  
- [[ -n $claimToken ]] && echo -e "Token: \n$claimToken" || echo "token failed"
+ [[ -n $claimToken ]] && echo -e "Token: \n$claimToken" || ( echo "token failed" && exit 1 ))
  
 sleep 3
 
@@ -42,6 +45,8 @@ curl \
  jq .
 ## should the data submission be "deviceId:${deviceId}" or without the colon...?? I think without, based on the HTML submission...
 
+## do some error return code checking and exit as needed... (needs a successful test run first...)
+
 sleep 3
 
 ## activate radio
@@ -62,3 +67,5 @@ curl \
  -d "deviceId${deviceId}" \
  $url | \
  jq .
+
+## do some error return code checking and exit as needed... (needs a successful test run first...)
