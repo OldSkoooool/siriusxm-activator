@@ -24,6 +24,7 @@ claimToken=$( curl \
 sleep 3
 
 ## create account
+## 2022-09-23 -- this isn't working, getting failed authentication. Token and deviceId should be fine, so it's likely formatting on the submission....
 echo "Creating account..."
 sleep 3
 
