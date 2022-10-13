@@ -30,7 +30,12 @@ echo "Creating account..."
 sleep 3
 
 ## update me...
-deviceId="TESTID"
+if [[ -n $1 ]]; then
+{
+  deviceId=$1
+} else {
+  deviceId="TESTID"
+}
 url="https://mcare.siriusxm.ca/services/DealerAppService3/CreateAccount"
 
 curl \
@@ -46,8 +51,36 @@ curl \
  $url | \
  jq .
 
+## successful attempt Headers:
+# POST /services/DealerAppService3/CreateAccount HTTP/1.1
+# Accept: */*
+# Accept-Encoding: gzip, deflate, br
+# Accept-Language: en-US,en;q=0.9
+# Connection: keep-alive
+# Content-Length: 17
+# Content-Type: application/x-www-form-urlencoded
+# Host: mcare.siriusxm.ca
+# Referer: https://parker-stephens.github.io/
+# Sec-Fetch-Dest: empty
+# Sec-Fetch-Mode: cors
+# Sec-Fetch-Site: cross-site
+# User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/537.36
+# X-Kony-API-Version: 1.0
+# X-Kony-Authorization: <token>
+# X-Kony-Platform-Type: ios
+# sec-ch-ua: "Chromium";v="105", "Not)A;Brand";v="8"
+# sec-ch-ua-mobile: ?0
+# sec-ch-ua-platform: "Windows"
+#
+## successful attempt Data:
+# deviceId=AAAABBBB
+
 ## do some error return code checking and exit as needed... (needs a successful test run first...)
 
+
+
+#-# debug - stop here
+exit 1
 sleep 3
 
 ## activate radio
