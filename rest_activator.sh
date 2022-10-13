@@ -19,12 +19,13 @@ claimToken=$( curl \
   $url | \
   jq -r .claims_token.value )
  
- [[ -n $claimToken ]] && echo -e "Token: \n$claimToken" || ( echo "token failed" && exit 1 ))
+ ( [[ -n $claimToken ]] && [[ $claimToken -ne "null" ]] ) && echo -e "Token: \n$claimToken" || ( echo "token failed" && exit 1 )
  
 sleep 3
 
 ## create account
-## 2022-09-23 -- this isn't working, getting failed authentication. Token and deviceId should be fine, so it's likely formatting on the submission....
+## 2022-09-23 -- this isn't working, getting failed authentication. Token and deviceId should be fine, so it's likely formatting on the submission...
+## 2022-10-13 -- changed POST data to be form-url-encoded format, still auth failure, despite having a token... hmm...
 echo "Creating account..."
 sleep 3
 
@@ -41,7 +42,7 @@ curl \
  -H "X-Kony-API-Version: 1.0" \
  -H "X-Kony-Platform-Type: ios" \
  -H "Accept: */*" \
- -d "deviceId${deviceId}" \
+ -d "deviceId=${deviceId}" \
  $url | \
  jq .
 ## should the data submission be "deviceId:${deviceId}" or without the colon...?? I think without, based on the HTML submission...
@@ -65,7 +66,7 @@ curl \
  -H "X-Kony-API-Version: 1.0" \
  -H "X-Kony-Platform-Type: ios" \
  -H "Accept: */*" \
- -d "deviceId${deviceId}" \
+ -d "deviceId=${deviceId}" \
  $url | \
  jq .
 
