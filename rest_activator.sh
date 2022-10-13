@@ -45,7 +45,6 @@ curl \
  -d "deviceId=${deviceId}" \
  $url | \
  jq .
-## should the data submission be "deviceId:${deviceId}" or without the colon...?? I think without, based on the HTML submission...
 
 ## do some error return code checking and exit as needed... (needs a successful test run first...)
 
